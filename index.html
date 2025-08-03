@@ -13,6 +13,8 @@
             --light: #ffffff;
             --gray: #f7f7f7;
             --text: #333;
+            --accent: #ff8c42;
+            --accent-light: #fff0e6;
         }
 
         * {
@@ -57,6 +59,8 @@
 
         header a:hover {
             background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
         }
 
         main {
@@ -80,6 +84,76 @@
             color: var(--text);
         }
 
+        /* Gallery Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--gray);
+            color: var(--text);
+            border: 2px solid transparent;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: var(--light);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin: 3rem 0;
+            opacity: 1;
+            transition: all 0.5s ease;
+        }
+
+        .category-section.hidden {
+            display: none;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .category-description {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -87,16 +161,67 @@
             padding: 1rem 0;
         }
 
-        .gallery img {
-            width: 100%;
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
             border-radius: 15px;
-            border: 1px solid #ddd;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        .gallery-item:hover {
+            transform: translateY(-8px) rotateY(5deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            filter: brightness(0.9);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15);
+            filter: brightness(1.1) saturate(1.2);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 105, 180, 0.1), rgba(255, 140, 66, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 15px;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item::after {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: scale(0) rotate(180deg);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
         }
 
         footer {
@@ -118,9 +243,22 @@
                 font-size: 1.7rem;
             }
 
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
             .gallery {
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
                 gap: 1rem;
+            }
+
+            .gallery img {
+                height: 200px;
             }
 
             main h2 {
@@ -129,6 +267,10 @@
 
             main p {
                 font-size: 1rem;
+            }
+
+            .category-title {
+                font-size: 1.3rem;
             }
         }
 
@@ -146,6 +288,36 @@
             .gallery {
                 grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             }
+
+            .gallery img {
+                height: 180px;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filter-btn {
+                width: 200px;
+                text-align: center;
+            }
+        }
+
+        /* Additional cool effects */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .gallery-item:hover::after {
+            animation: sparkle 0.6s ease-in-out;
+        }
+
+        .gallery-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -168,83 +340,230 @@
             coding.</p>
 
         <h2>Our Best Cake Designs</h2>
-        <p>We can make the exact same to join your special occasions — or bring your dream cake to life!</p>
+        <p>Browse through our delicious collection of handcrafted cakes, organized by category!</p>
 
-        <div class="gallery">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/20250720_105210.jpg"
-                alt="Cake 1">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0239.jpg"
-                alt="Cake 2">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0240.jpg"
-                alt="Cake 3">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0242.jpg"
-                alt="Cake 4">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0243.jpg"
-                alt="Cake 5">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0244.jpg"
-                alt="Cake 6">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0246.jpg"
-                alt="Cake 7">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0247.jpg"
-                alt="Cake 8">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0248.jpg"
-                alt="Cake 9">
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="showCategory('all')">All Designs</button>
+            <button class="filter-btn" onclick="showCategory('birthday')">Birthday Cakes</button>
+            <button class="filter-btn" onclick="showCategory('theme')">Theme Cakes</button>
+            <button class="filter-btn" onclick="showCategory('special')">Special Occasions</button>
+        </div>
 
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0251.jpg"
-                alt="Cake 10">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0252.jpg"
-                alt="Cake 11">
+        <!-- Birthday Cakes Section -->
+        <div class="category-section" id="birthday-section">
+            <h3 class="category-title">🎂 Birthday Cakes</h3>
+            <p class="category-description">Perfect for making birthdays extra special with colorful and fun designs</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/20250720_105210.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0242.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0244.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0246.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0245.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0251.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0248.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0257.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0258.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0259.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0261.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0262.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0263.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0264.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0267.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0299.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0306.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0318.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0311.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/IMG-20250719-WA0326.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.31_74b3ba64.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.33_be6db832.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.36_2a1d3173.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.36_35caa2a8.jpg" alt="Birthday Cake">
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.39_2bcfbaef.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.39_998f12d3.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.41_5e2c2a2c.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.47_d0516554.jpg" alt="Birthday Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/birthday-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.48_8a659b29.jpg" alt="Birthday Cake">
+                </div>
+            </div>
+        </div>
 
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0257.jpg"
-                alt="Cake 12">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0258.jpg"
-                alt="Cake 13">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0259.jpg"
-                alt="Cake 14">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0261.jpg"
-                alt="Cake 15">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0262.jpg"
-                alt="Cake 16">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0263.jpg"
-                alt="Cake 17">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0264.jpg"
-                alt="Cake 18">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0266.jpg"
-                alt="Cake 19">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0267.jpg"
-                alt="Cake 20">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0272.jpg"
-                alt="Cake 21">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0283.jpg"
-                alt="Cake 22">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0287.jpg"
-                alt="Cake 23">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0295.jpg"
-                alt="Cake 24">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0299.jpg"
-                alt="Cake 25">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0304.jpg"
-                alt="Cake 26">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0306.jpg"
-                alt="Cake 27">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0310.jpg"
-                alt="Cake 28">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0311.jpg"
-                alt="Cake 29">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0318.jpg"
-                alt="Cake 30">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0322.jpg"
-                alt="Cake 30">
-            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0326.jpg"
-                alt="Cake 31">
+        <!-- Theme Cakes Section -->
+        <div class="category-section" id="theme-section">
+            <h3 class="category-title">🎨 Theme Cakes</h3>
+            <p class="category-description">Creative and unique designs based on your favorite themes</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0247.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0252.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0287.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0295.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0304.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0310.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/IMG-20250719-WA0322.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.24_747311f9.jpg" alt="Theme Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/theme-cakes/WhatsApp%20Image%202025-08-03%20at%2010.59.30_63ecf12a.jpg" alt="Theme Cake">
+                </div>
+            </div>
+        </div>
 
-
+        <!-- Special Occasions Section -->
+        <div class="category-section" id="special-section">
+            <h3 class="category-title">✨ Special Occasions</h3>
+            <p class="category-description">Unique designs for graduations, anniversaries, and milestone events</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/IMG-20250719-WA0239.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/IMG-20250719-WA0240.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/IMG-20250719-WA0243.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/IMG-20250719-WA0266.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/IMG-20250719-WA0272.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/IMG-20250719-WA0283.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/WhatsApp%20Image%202025-08-03%20at%2010.59.41_b6fb9e44.jpg" alt="Special Occasion Cake">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/special-occasions/WhatsApp%20Image%202025-08-03%20at%2010.59.47_597454de.jpg" alt="Special Occasion Cake">
+                </div>
+            </div>
         </div>
     </main>
 
     <footer>
         &copy; 2025 Absolute Tasty — Baked with ❤️ in the Cloud!
     </footer>
+
+    <script>
+        function showCategory(category) {
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Show/hide sections based on category
+            const sections = document.querySelectorAll('.category-section');
+            
+            if (category === 'all') {
+                sections.forEach(section => {
+                    section.classList.remove('hidden');
+                });
+            } else {
+                sections.forEach(section => {
+                    const sectionId = section.id;
+                    if (sectionId === `${category}-section`) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Smooth scroll to top of gallery
+            document.querySelector('.filter-buttons').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+
+        // Initialize - show all categories by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showCategory('all');
+        });
+
+        // Add click handlers for images to show larger view
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                window.open(this.src, '_blank');
+            });
+        });
+    </script>
 </body>
 
 </html>
