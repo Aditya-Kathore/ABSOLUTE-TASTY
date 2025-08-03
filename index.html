@@ -2,51 +2,249 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABSOULTE TASTY</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABSOLUTE TASTY</title>
+    <style>
+        :root {
+            --primary: #ff69b4;
+            --primary-hover: #ff4fa1;
+            --dark: #1c1c1c;
+            --light: #ffffff;
+            --gray: #f7f7f7;
+            --text: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        header {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        header a {
+            text-decoration: none;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        header a:hover {
+            background-color: var(--primary-hover);
+        }
+
+        main {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        main h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 0.5rem;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        main p {
+            text-align: center;
+            max-width: 750px;
+            margin: 0.5rem auto 1.5rem;
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background-color: var(--gray);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header h1 {
+                font-size: 1.7rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+
+            main h2 {
+                font-size: 1.5rem;
+            }
+
+            main p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+
+            header a {
+                width: 100%;
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <header>ABSOLUTE TASTY
-        <a href="">contact</a>
+    <header>
+        <h1>ABSOLUTE TASTY</h1>
+        <a href="#">Contact</a>
     </header>
+
     <main>
-        <div>GET A TASTE OF HAPPINESS!</div>
-        <p>CAKES ARE SPECIAL. EVERY BIRTHDAY, EVERY CELEBRATIONS ENDS DESERVE TO END WITH BOTH SWEETEST CAKES AND
-            SWEETEST MEMORIES.
-        </p>
-        <h1>YOU SAY, WE MAKE!</h1>
-        <h2>HELPING TO MAKE YOUR MEMORIES SWEETER!</h2>
-        <p>>NOTICE-This website is only for display the works and design we offer. To order something just go through
-            our contact page. SOON WE WILL TRY TO MAKE THIS SITE INTRACTIVE TILL THEN GIVING MORE TIME TO BAKING THAN
-            COIDNG.</p>
+        <h2>Get a Taste of Happiness!</h2>
+        <p>Cakes are special. Every birthday, every celebration deserves to end with both the sweetest cakes and
+            sweetest memories.</p>
 
-        <h3>HERE ARE SOME OF OUR BEST CAKE DESGINS:</h3>
-        <p>we can make exactly some to join you in your special occasions, or we can make what you want to have in your
-            special occasion.</p>
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
+        <h2>You Say, We Make!</h2>
+        <p>Helping to make your memories sweeter!</p>
+        <p>Notice — This website is only to display the work and designs we offer. To order something, go through our
+            contact page. Soon we will try to make this site interactive — till then, giving more time to baking than
+            coding.</p>
 
+        <h2>Our Best Cake Designs</h2>
+        <p>We can make the exact same to join your special occasions — or bring your dream cake to life!</p>
+
+        <div class="gallery">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/20250720_105210.jpg"
+                alt="Cake 1">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0239.jpg"
+                alt="Cake 2">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0240.jpg"
+                alt="Cake 3">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0242.jpg"
+                alt="Cake 4">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0243.jpg"
+                alt="Cake 5">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0244.jpg"
+                alt="Cake 6">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0246.jpg"
+                alt="Cake 7">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0247.jpg"
+                alt="Cake 8">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0248.jpg"
+                alt="Cake 9">
+
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0251.jpg"
+                alt="Cake 10">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0252.jpg"
+                alt="Cake 11">
+
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0257.jpg"
+                alt="Cake 12">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0258.jpg"
+                alt="Cake 13">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0259.jpg"
+                alt="Cake 14">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0261.jpg"
+                alt="Cake 15">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0262.jpg"
+                alt="Cake 16">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0263.jpg"
+                alt="Cake 17">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0264.jpg"
+                alt="Cake 18">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0266.jpg"
+                alt="Cake 19">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0267.jpg"
+                alt="Cake 20">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0272.jpg"
+                alt="Cake 21">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0283.jpg"
+                alt="Cake 22">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0287.jpg"
+                alt="Cake 23">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0295.jpg"
+                alt="Cake 24">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0299.jpg"
+                alt="Cake 25">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0304.jpg"
+                alt="Cake 26">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0306.jpg"
+                alt="Cake 27">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0310.jpg"
+                alt="Cake 28">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0311.jpg"
+                alt="Cake 29">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0318.jpg"
+                alt="Cake 30">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0322.jpg"
+                alt="Cake 30">
+            <img src="https://raw.githubusercontent.com/Aditya-Kathore/ABSOLUTE-TASTY/main/pictures/IMG-20250719-WA0326.jpg"
+                alt="Cake 31">
+
+
+        </div>
     </main>
-    <footer>----------</footer>
+
+    <footer>
+        &copy; 2025 Absolute Tasty — Baked with ❤️ in the Cloud!
+    </footer>
 </body>
 
 </html>
